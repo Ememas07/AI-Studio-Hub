@@ -3,7 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Studio Projects Hub | Ememas07</title>
+  <title>Welcome to Marc's Gemini Studio Hub</title>
+
+  <!-- Discord & Open Graph Embed Tags -->
+  <meta name="title" content="Welcome to Marc's Gemini Studio Hub" />
+  <meta name="description" content="Collection of things made by Marc using Gemini in AI Studio to mess about" />
+  <link rel="icon" type="image/png" href="avatar.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ememas07.github.io/AI-Studio-Hub/" />
+  <meta property="og:site_name" content="Marc's Gemini Studio Hub" />
+  <meta property="og:title" content="Welcome to Marc's Gemini Studio Hub" />
+  <meta property="og:description" content="Collection of things made by Marc using Gemini in AI Studio to mess about" />
+  <meta property="og:image" content="https://ememas07.github.io/AI-Studio-Hub/avatar.png" />
+  <meta property="og:image:secure_url" content="https://ememas07.github.io/AI-Studio-Hub/avatar.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="400" />
+  <meta property="og:image:height" content="400" />
+  <meta property="og:image:alt" content="Marc Mas Profile Picture" />
+
+  <!-- Discord Theme Color (Left-side embed bar color) -->
+  <meta name="theme-color" content="#38bdf8" />
+
+  <!-- Twitter Card (summary = thumbnail in corner on Discord) -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:url" content="https://ememas07.github.io/AI-Studio-Hub/" />
+  <meta name="twitter:title" content="Welcome to Marc's Gemini Studio Hub" />
+  <meta name="twitter:description" content="Collection of things made by Marc using Gemini in AI Studio to mess about" />
+  <meta name="twitter:image" content="https://ememas07.github.io/AI-Studio-Hub/avatar.png" />
+  <meta name="twitter:creator" content="@Ememas07" />
+
   <style>
     :root {
       --bg: #0f172a;
@@ -235,18 +264,91 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* Corner Profile Widget */
+    .corner-profile {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      z-index: 20;
+    }
+
+    .profile-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(30, 41, 59, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      padding: 0.35rem 0.85rem 0.35rem 0.45rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .profile-link:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -4px var(--accent-glow);
+    }
+
+    .profile-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-meta {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+
+    .profile-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .profile-sub {
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-family: monospace;
+    }
+
+    @media (max-width: 680px) {
+      .corner-profile {
+        position: static;
+        margin-bottom: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Corner Profile with PFP -->
+  <aside class="corner-profile">
+    <a href="https://github.com/Ememas07" target="_blank" rel="noopener noreferrer" class="profile-link" title="Visit Marc's GitHub Profile (@Ememas07)">
+      <img src="avatar.png" alt="Marc Mas" class="profile-avatar" />
+      <div class="profile-meta">
+        <span class="profile-name">Marc Mas</span>
+        <span class="profile-sub">@Ememas07</span>
+      </div>
+    </a>
+  </aside>
+
   <header>
     <div class="badge-hub">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
       </svg>
-      Google AI Studio Showcase
+      Google AI Studio & Gemini Hub
     </div>
-    <h1>AI Studio Hub</h1>
-    <p>Explore games and interactive experiments generated with Google AI Studio and deployed on GitHub Pages.</p>
+    <h1>Welcome to Marc's Gemini Studio Hub</h1>
+    <p>Collection of things made by Marc using Gemini in AI Studio to mess about.</p>
   </header>
 
   <main class="grid">
