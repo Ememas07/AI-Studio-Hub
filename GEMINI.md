@@ -2,8 +2,7 @@
 
 ## Architecture Overview
 - **Hub Repository:** `Ememas07/AI-Studio-Hub` (Public) — hosted on a raspberry pi with dynamic dns at `https://marc-mas.ddns.net/`.
-- **Sub-Repositories:** Public AI Studio projects (`Ememas07/<repo-name>`) cloned over HTTPS (`--depth 1`), compiled, and bundled into `_site/<repo-name>/` by `AI-Studio-Hub`'s GitHub Actions workflow (`deploy.yml`).
-- **Upward Chaining:** Each sub-repo has `.github/workflows/notify-hub.yml` and a `HUB_DISPATCH_TOKEN` secret (Fine-grained PAT with `Contents: Read and write` scoped strictly to `Ememas07/AI-Studio-Hub`). Pushing to `main` in any sub-repo fires a `repository_dispatch` (`subrepo-updated`) event to rebuild and redeploy `AI-Studio-Hub`.
+- **Sub-Repositories:** Public AI Studio projects (`Ememas07/<repo-name>`) cloned, built, and hosted under `https://marc-mas.ddns.net/<repo-name>/`.
 
 ---
 
