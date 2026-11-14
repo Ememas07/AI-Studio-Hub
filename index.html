@@ -3,37 +3,376 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My AI Studio Projects</title>
+  <title>AI Studio Projects Hub | Ememas07</title>
   <style>
-    body { font-family: system-ui, sans-serif; background: #0f172a; color: #f8fafc; display: flex; flex-direction: column; align-items: center; padding: 3rem 1rem; margin: 0; }
-    h1 { margin-bottom: 2rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; width: 100%; max-width: 800px; }
-    .card { background: #1e293b; border: 1px solid #334155; border-radius: 0.75rem; padding: 1.5rem; text-decoration: none; color: inherit; transition: transform 0.15s, border-color 0.15s; }
-    .card:hover { transform: translateY(-3px); border-color: #38bdf8; }
-    .card h2 { margin: 0 0 0.5rem 0; font-size: 1.25rem; color: #38bdf8; }
-    .card p { margin: 0; color: #94a3b8; font-size: 0.9rem; }
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --card-border-hover: #38bdf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.15);
+      --btn-bg: #0284c7;
+      --btn-hover: #0369a1;
+      --btn-sec-bg: #334155;
+      --btn-sec-hover: #475569;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.25rem;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(99, 102, 241, 0.08) 0%, transparent 40%);
+    }
+
+    header {
+      text-align: center;
+      max-width: 680px;
+      margin-bottom: 2.75rem;
+    }
+
+    .badge-hub {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 1rem;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--card-border-hover);
+      box-shadow: 0 12px 28px -8px var(--accent-glow);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      margin-bottom: 1.25rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    .repo-pill {
+      font-size: 0.75rem;
+      font-family: monospace;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0.6rem;
+      transition: background 0.15s ease, transform 0.15s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      flex: 1;
+      background: var(--btn-bg);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--btn-hover);
+    }
+
+    .btn-secondary {
+      background: var(--btn-sec-bg);
+      color: #f1f5f9;
+      padding: 0.65rem 0.85rem;
+    }
+
+    .btn-secondary:hover {
+      background: var(--btn-sec-hover);
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      text-align: center;
+      color: #64748b;
+      font-size: 0.875rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>AI Studio Hub</h1>
-  <div class="grid">
-    <!-- Replace href values with your exact GitHub repository names -->
-    <a class="card" href="/repo-1/">
-      <h2>Project 1</h2>
-      <p>Description of your first AI Studio app.</p>
-    </a>
-    <a class="card" href="/repo-2/">
-      <h2>Project 2</h2>
-      <p>Description of your second AI Studio app.</p>
-    </a>
-    <a class="card" href="/repo-3/">
-      <h2>Project 3</h2>
-      <p>Description of your third AI Studio app.</p>
-    </a>
-    <a class="card" href="/repo-4/">
-      <h2>Project 4</h2>
-      <p>Description of your fourth AI Studio app.</p>
-    </a>
-  </div>
+  <header>
+    <div class="badge-hub">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </svg>
+      Google AI Studio Showcase
+    </div>
+    <h1>AI Studio Hub</h1>
+    <p>Explore games and interactive experiments generated with Google AI Studio and deployed on GitHub Pages.</p>
+  </header>
+
+  <main class="grid">
+    <!-- Project 1: Tank 1v1 Game -->
+    <article class="card">
+      <div class="card-top">
+        <div class="card-header">
+          <h2>Ironclad Duel</h2>
+          <span class="repo-pill">Tank-1v1-Game</span>
+        </div>
+        <p>Real-time 1v1 multiplayer top-down tank combat arena with ricochet shells, destructible cover, and instant room-code matchmaking.</p>
+        <div class="tags">
+          <span class="tag">💥 1v1 Arena</span>
+          <span class="tag">🛡️ Multiplayer</span>
+          <span class="tag">🎯 Ricochet Physics</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://ememas07.github.io/Tank-1v1-Game/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Launch Game
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/Ememas07/Tank-1v1-Game" target="_blank" rel="noopener noreferrer" title="View repository on GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+          </svg>
+          Repo
+        </a>
+      </div>
+    </article>
+
+    <!-- Project 2: Rhythm Cat -->
+    <article class="card">
+      <div class="card-top">
+        <div class="card-header">
+          <h2>Sausage Cat Beat</h2>
+          <span class="repo-pill">Rhythm-Cat</span>
+        </div>
+        <p>A rhythm-driven Flappy Bird arcade game featuring a stretchy sausage-shaped cat and automatic level generation from any imported MP3 song.</p>
+        <div class="tags">
+          <span class="tag">🐱 Sausage Cat</span>
+          <span class="tag">🎵 Rhythm Arcade</span>
+          <span class="tag">🎶 MP3 Generator</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://ememas07.github.io/Rhythm-Cat/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Launch Game
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/Ememas07/Rhythm-Cat" target="_blank" rel="noopener noreferrer" title="View repository on GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+          </svg>
+          Repo
+        </a>
+      </div>
+    </article>
+
+    <!-- Project 3: FPS Chess -->
+    <article class="card">
+      <div class="card-top">
+        <div class="card-header">
+          <h2>CROWNBREAK</h2>
+          <span class="repo-pill">FPS-Chess</span>
+        </div>
+        <p>3D Tactical Chess & First-Person Arena Shooter where every capture is settled in a fast-paced 1v1 FPS duel.</p>
+        <div class="tags">
+          <span class="tag">♟️ Tactical Chess</span>
+          <span class="tag">🎯 1v1 FPS Duel</span>
+          <span class="tag">🎲 3D Three.js</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://ememas07.github.io/FPS-Chess/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Launch Game
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/Ememas07/FPS-Chess" target="_blank" rel="noopener noreferrer" title="View repository on GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+          </svg>
+          Repo
+        </a>
+      </div>
+    </article>
+
+    <!-- Project 4: Lamp Maker -->
+    <article class="card">
+      <div class="card-top">
+        <div class="card-header">
+          <h2>Lumen Atelier</h2>
+          <span class="repo-pill">lamp-maker</span>
+        </div>
+        <p>An artisanal lamp-crafting game with material gathering, custom lighting physics, NPC customer commissions, and an interactive showroom.</p>
+        <div class="tags">
+          <span class="tag">💡 Lamp Crafting</span>
+          <span class="tag">✨ Custom Lighting</span>
+          <span class="tag">🏪 Showroom</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="https://ememas07.github.io/lamp-maker/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Launch App
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/Ememas07/lamp-maker" target="_blank" rel="noopener noreferrer" title="View repository on GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+          </svg>
+          Repo
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>Curated by <a href="https://github.com/Ememas07" target="_blank" rel="noopener noreferrer">@Ememas07</a> • Built with Google AI Studio & GitHub Pages</p>
+  </footer>
 </body>
 </html>
