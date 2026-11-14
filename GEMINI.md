@@ -1,8 +1,9 @@
 # AI-Studio-Hub Agent Instructions
 
 ## Architecture Overview
-- **Hub Repository:** `Ememas07/AI-Studio-Hub` (Public) — hosted on a raspberry pi with dynamic dns at `https://marc-mas.ddns.net/`.
-- **Sub-Repositories:** Public AI Studio projects (`Ememas07/<repo-name>`) cloned, built, and hosted under `https://marc-mas.ddns.net/<repo-name>/`.
+- **Hub Repository:** `Ememas07/AI-Studio-Hub` (Public) — self-hosted on a Raspberry Pi behind Caddy (`https://marc-mas.ddns.net/`).
+- **Sub-Repositories:** Public AI Studio projects (`Ememas07/<repo-name>`) listed in `repos.txt`.
+- **Deployment Pipeline:** The Raspberry Pi runs `/usr/local/bin/sync-site.sh` via cron every 2 minutes. It automatically pulls `AI-Studio-Hub`, clones/updates every repository in `repos.txt`, runs Vite/Angular builds if needed, symlinks outputs into `/var/www/public/<repo-name>`, injects the global favicon, and updates Caddy's lowercase URL redirects. No GitHub Actions workflows or dispatch tokens are used.
 
 ---
 
@@ -12,34 +13,14 @@ When the user asks to add a new repository (e.g., `add repo https://github.com/E
 
 ### 1. Parse & Inspect the New Sub-Repository
 - Extract `<repo-name>` from the provided URL (`Ememas07/<repo-name>`).
-- Ensure the repository is **Public** so `AI-Studio-Hub` can clone it without a read token (`gh repo view Ememas07/<repo-name> --json visibility`).
+- Verify the repository is **Public** so the Raspberry Pi can clone it without credentials (`gh repo view Ememas07/<repo-name> --json visibility`).
 - Inspect the repo via `gh api` or a temporary shallow clone to determine:
   - **Title & Description:** Read `README.md` or `package.json` for a clean display title and 1-sentence summary.
-  - **Framework & Base Path:** Confirm it matches a builder supported by `AI-Studio-Hub`'s `.github/workflows/deploy.yml` (Vite/React/Three.js via `package.json`, Angular via `angular.json`, or plain static HTML/JS). If `vite.config.*` has a hardcoded `base: '/'`, change it to `base: './'` (or remove it so `--base=./` takes effect) and push the fix.
+  - **Framework & Base Path:** Confirm it uses a supported structure (Vite/React/Three.js via `package.json`, Angular via `angular.json`, or plain static HTML/JS).
+  - **Relative Asset Paths:** If `vite.config.*` has a hardcoded `base: '/'`, change it to `base: './'` (or remove it so `--base=./` takes effect) and push the fix so assets resolve under `/<repo-name>/`.
+  - **Back to Hub Button:** Ensure the sub-repository's UI includes a clearly visible button or link to return to the main hub page (`https://marc-mas.ddns.net/` or `/`), adding one cleanly to the layout/HUD if missing and pushing the change.
 
-### 2. Configure Upward Chaining in the Sub-Repository
-- Disable any standalone GitHub Pages site on the sub-repo (`gh api -X DELETE repos/Ememas07/<repo-name>/pages 2>/dev/null || true`) and remove any redundant standalone `.github/workflows/deploy.yml` if present.
-- Set `HUB_DISPATCH_TOKEN` on `Ememas07/<repo-name>`:
-  - Read `HUB_DISPATCH_TOKEN` from the local `.env` file in `AI-Studio-Hub` if available; otherwise ask the user to paste the token once, then run:
-    ```bash
-    gh secret set HUB_DISPATCH_TOKEN -R Ememas07/<repo-name> --body "<token>"
-    ```
-- Add `.github/workflows/notify-hub.yml` to `main` in `Ememas07/<repo-name>`:
-  ```yaml
-  name: Notify AI-Studio-Hub
-
-  on:
-    push:
-      branches: ["main"]
-
-  jobs:
-    trigger-hub:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Trigger AI-Studio-Hub Rebuild
-          run: |
-            curl -X POST \
-              -H "Accept: application/vnd.github+json" \
-              -H "Authorization: Bearer ${{ secrets.HUB_DISPATCH_TOKEN }}" \
-              https://api.github.com/repos/Ememas07/AI-Studio-Hub/dispatches \
-              -d '{"event_type":"subrepo-updated","client_payload":{"repo":"${{ github.repository }}"}}'
+### 2. Point the Sub-Repository's GitHub Website URL to the Server
+- Set the GitHub repository's homepage/website field to `https://marc-mas.ddns.net/<repo-name>/`:
+  ```bash
+  gh repo edit Ememas07/<repo-name> --homepage "[https://marc-mas.ddns.net/](https://marc-mas.ddns.net/)<repo-name>/"
