@@ -1,6 +1,6 @@
 Tank-1v1-Game
 Rhythm-Cat
 FPS-Chess
-lamp-maker
+Lamp-Maker
 Bernabeu-3D-Render
 3D-Casino
