@@ -1,9 +1,11 @@
-name: Deploy Hub to Pages
+name: Build and Deploy Hub with Subrepos to Pages
 
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  repository_dispatch:
+    types: [subrepo-updated]
 
 permissions:
   contents: read
@@ -15,22 +17,57 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout AI-Studio-Hub
         uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Build All Sub-Projects
+        run: |
+          set -e
+          mkdir -p _site _temp_repos
+          while IFS= read -r repo || [ -n "$repo" ]; do
+            repo=$(echo "$repo" | sed -e 's/#.*//' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+            [ -z "$repo" ] && continue
+            echo "Building $repo..."
+            mkdir -p "_site/$repo"
+            cd _temp_repos
+            git clone --depth 1 "https://github.com/Ememas07/${repo}.git" "$repo"
+            cd "$repo"
+            if [ -f "angular.json" ]; then
+              npm install --legacy-peer-deps
+              npx ng build --base-href ./
+              OUT_DIR=$(find dist -name "index.html" -exec dirname {} \; | head -n 1)
+              cp "$OUT_DIR/index.html" "$OUT_DIR/404.html"
+              cp -r "$OUT_DIR/." "../../_site/$repo/"
+            elif [ -f "package.json" ]; then
+              npm install --legacy-peer-deps
+              npx vite build --base=./
+              cp -r dist/. "../../_site/$repo/"
+            else
+              find . -maxdepth 1 ! -name "." ! -name ".git*" ! -name "_*" -exec cp -r {} "../../_site/$repo/" \;
+            fi
+            cd ../..
+          done < repos.txt
+          cp index.html _site/
+          [ -f "avatar.png" ] && cp avatar.png _site/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: ./_site
 
       - name: Deploy to GitHub Pages
         id: deployment
