@@ -292,6 +292,158 @@
       box-shadow: 0 12px 28px -8px rgba(245, 158, 11, 0.25);
     }
 
+    /* Featured Spotlight Showcase */
+    .featured-showcase-section {
+      width: 100%;
+    }
+
+    .spotlight-badge {
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    .featured-hero-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 1.75rem;
+      align-items: center;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-hero-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #f59e0b);
+      opacity: 0.95;
+    }
+
+    .featured-hero-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--card-border-hover);
+      box-shadow: 0 16px 36px -8px var(--accent-glow);
+    }
+
+    .hero-media {
+      position: relative;
+      border-radius: 0.85rem;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #0b1120;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: block;
+      text-decoration: none;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-media:hover .hero-img {
+      transform: scale(1.03);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .hero-media:hover .hero-overlay {
+      opacity: 1;
+    }
+
+    .hero-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--btn-bg);
+      border-radius: 9999px;
+      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.5);
+      transform: translateY(6px);
+      transition: transform 0.2s ease, background 0.15s ease;
+    }
+
+    .hero-play-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .hero-media:hover .hero-play-btn {
+      transform: translateY(0);
+      background: var(--btn-hover);
+    }
+
+    .hero-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .hero-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .hero-tag-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      align-self: flex-start;
+    }
+
+    .hero-body h2 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+    }
+
+    .hero-description {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0.75rem 0 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .featured-hero-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
     .card-actions {
       display: flex;
       gap: 0.75rem;
@@ -519,43 +671,60 @@
   </header>
 
   <main class="main-container">
-    <!-- Pinned Games Section -->
-    <section>
+    <!-- Featured Project: Apex Miniature -->
+    <section class="featured-showcase-section">
       <div class="section-header">
         <h2 class="section-title">
-          <span>📌</span>
-          Pinned Games
+          <span>🏎️</span>
+          Featured Project
         </h2>
-        <span class="section-badge">Featured</span>
+        <span class="section-badge spotlight-badge">Spotlight</span>
       </div>
-      <div class="grid">
-        <!-- Pinned 1: Ironclad Duel (Tank-1v1-Game) -->
-        <article class="card card-pinned">
-          <div class="card-top">
+
+      <article class="featured-hero-card">
+        <a href="./Apex-Miniature/" target="_blank" rel="noopener noreferrer" class="hero-media" title="Launch Apex Miniature">
+          <img src="./apex-miniature.jpg" alt="Apex Miniature Screenshot" class="hero-img" />
+          <div class="hero-overlay">
+            <span class="hero-play-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Launch Game
+            </span>
+          </div>
+        </a>
+
+        <div class="hero-body">
+          <div class="hero-top">
             <div class="card-header">
-              <h2>Ironclad Duel</h2>
-              <span class="repo-pill">Tank-1v1-Game</span>
+              <div class="hero-title-group">
+                <span class="hero-tag-badge">Spotlight Showcase</span>
+                <h2>Apex Miniature</h2>
+              </div>
+              <span class="repo-pill">Apex-Miniature</span>
             </div>
-            <p>Real-time 1v1 multiplayer top-down tank combat arena with ricochet shells, destructible cover, and instant
-              room-code matchmaking. Created on 13/11 by Gemini 4 Hydrogen.</p>
+            <p class="hero-description">
+              3D die-cast miniature sim-cade motorsport racer with multi-class endurance, F1 eras, pit strategy, interactive livery studio, and multiplayer. Initial version by Hydrogen, overhauled by Neon.
+            </p>
             <div class="tags">
-              <span class="tag tag-pinned">📌 Pinned</span>
-              <span class="tag tag-model">🤖 Gemini 4 Hydrogen</span>
-              <span class="tag tag-date">📅 13/11</span>
-              <span class="tag">💥 1v1 Arena</span>
-              <span class="tag">🛡️ Multiplayer</span>
-              <span class="tag">🎯 Ricochet Physics</span>
+              <span class="tag tag-model">🤖 Initial version by Hydrogen, overhauled by Neon</span>
+              <span class="tag tag-date">📅 15/11</span>
+              <span class="tag">🏎️ Sim-Cade Racer</span>
+              <span class="tag">🏁 Multi-Class Endurance</span>
+              <span class="tag">🌐 Multiplayer</span>
+              <span class="tag">✨ Three.js</span>
             </div>
           </div>
           <div class="card-actions">
-            <a class="btn btn-primary" href="./Tank-1v1-Game/" target="_blank" rel="noopener noreferrer">
+            <a class="btn btn-primary" href="./Apex-Miniature/" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
               </svg>
               Launch Game
             </a>
-            <a class="btn btn-secondary" href="https://github.com/Ememas07/Tank-1v1-Game" target="_blank"
+            <a class="btn btn-secondary" href="https://github.com/Ememas07/Apex-Miniature" target="_blank"
               rel="noopener noreferrer" title="View repository on GitHub">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -565,10 +734,22 @@
               Repo
             </a>
           </div>
-        </article>
+        </div>
+      </article>
+    </section>
 
-        <!-- Pinned 2: Sandline Tactical (CS2-Clone) -->
-        <article class="card card-pinned">
+    <!-- All Projects Section (Sorted by Date) -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title">
+          <span>✨</span>
+          All Projects
+        </h2>
+        <span class="section-badge">Sorted by Date</span>
+      </div>
+      <div class="grid">
+        <!-- Project 1: Sandline Tactical (CS2-Clone, 15/11) -->
+        <article class="card">
           <div class="card-top">
             <div class="card-header">
               <h2>Sandline Tactical</h2>
@@ -576,7 +757,6 @@
             </div>
             <p>Competitive 5v5 3D tactical first-person shooter with 3-lane sandstone arena, CS2-inspired economy, procedural PBR rendering, and WebSocket multiplayer. Created on 15/11 by Gemini 4 Hydrogen.</p>
             <div class="tags">
-              <span class="tag tag-pinned">📌 Pinned</span>
               <span class="tag tag-model">🤖 Gemini 4 Hydrogen</span>
               <span class="tag tag-date">📅 15/11</span>
               <span class="tag">🎯 Tactical FPS</span>
@@ -604,58 +784,7 @@
             </a>
           </div>
         </article>
-
-        <!-- Pinned 3: Apex Miniature (Apex-Miniature) -->
-        <article class="card card-pinned">
-          <div class="card-top">
-            <div class="card-header">
-              <h2>Apex Miniature</h2>
-              <span class="repo-pill">Apex-Miniature</span>
-            </div>
-            <p>3D die-cast miniature sim-cade motorsport racer with multi-class endurance, F1 eras, pit strategy, interactive livery studio, and multiplayer. Created on 15/11 by Gemini 4 Hydrogen.</p>
-            <div class="tags">
-              <span class="tag tag-pinned">📌 Pinned</span>
-              <span class="tag tag-model">🤖 Gemini 4 Hydrogen</span>
-              <span class="tag tag-date">📅 15/11</span>
-              <span class="tag">🏎️ Sim-Cade Racer</span>
-              <span class="tag">🏁 Multi-Class Endurance</span>
-              <span class="tag">🌐 Multiplayer</span>
-              <span class="tag">✨ Three.js</span>
-            </div>
-          </div>
-          <div class="card-actions">
-            <a class="btn btn-primary" href="./Apex-Miniature/" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                stroke-linejoin="round">
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-              </svg>
-              Launch Game
-            </a>
-            <a class="btn btn-secondary" href="https://github.com/Ememas07/Apex-Miniature" target="_blank"
-              rel="noopener noreferrer" title="View repository on GitHub">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z">
-                </path>
-              </svg>
-              Repo
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- More Projects Section (Sorted by Date) -->
-    <section>
-      <div class="section-header">
-        <h2 class="section-title">
-          <span>✨</span>
-          More Projects
-        </h2>
-        <span class="section-badge">Sorted by Date</span>
-      </div>
-      <div class="grid">
-        <!-- Project 4: Rhythm Cat (14/11) -->
+        <!-- Project 2: Rhythm Cat (14/11) -->
         <article class="card">
           <div class="card-top">
             <div class="card-header">
@@ -693,7 +822,7 @@
           </div>
         </article>
 
-        <!-- Project 5: Lamp Maker (14/11) -->
+        <!-- Project 3: Lamp Maker (14/11) -->
         <article class="card">
           <div class="card-top">
             <div class="card-header">
@@ -730,7 +859,44 @@
           </div>
         </article>
 
-        <!-- Project 3: FPS Chess (13/11) -->
+        <!-- Project 4: Ironclad Duel (13/11) -->
+        <article class="card">
+          <div class="card-top">
+            <div class="card-header">
+              <h2>Ironclad Duel</h2>
+              <span class="repo-pill">Tank-1v1-Game</span>
+            </div>
+            <p>Real-time 1v1 multiplayer top-down tank combat arena with ricochet shells, destructible cover, and instant
+              room-code matchmaking. Created on 13/11 by Gemini 4 Hydrogen.</p>
+            <div class="tags">
+              <span class="tag tag-model">🤖 Gemini 4 Hydrogen</span>
+              <span class="tag tag-date">📅 13/11</span>
+              <span class="tag">💥 1v1 Arena</span>
+              <span class="tag">🛡️ Multiplayer</span>
+              <span class="tag">🎯 Ricochet Physics</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="./Tank-1v1-Game/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Launch Game
+            </a>
+            <a class="btn btn-secondary" href="https://github.com/Ememas07/Tank-1v1-Game" target="_blank"
+              rel="noopener noreferrer" title="View repository on GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z">
+                </path>
+              </svg>
+              Repo
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 5: FPS Chess (13/11) -->
         <article class="card">
           <div class="card-top">
             <div class="card-header">
